@@ -1,2 +1,11 @@
-# phpda raqamni so`z bilan yozish
- phpda raqamni so`z bilan yozish
+# Phpda raqamni so`z bilan yozish
+ Phpda raqamni so`z bilan yozish
+
+
+Ишлатиш: 
+Керакли сахифанинг тепа қисмига  require ('yadro.php'); шакилда жойлаштирасиз.
+
+
+Рақамни сўз билан ёзиш учун эса echo convertNumber(266565940); шакилда чиқариб қўясиз
+
+Эслатма: Рақамни сўзга айлантириш хозирда фақат крилга керак бўлса ўзгартириб олсангиз бўлади ва бу жуда осон
