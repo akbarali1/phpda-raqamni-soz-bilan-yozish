@@ -1,3 +1,3 @@
 <?php
-require_once("yar")
+require_once("yadro.php")
 ?>
