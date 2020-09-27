@@ -34,7 +34,7 @@ function convertNumber($number) {
             $output.= " " . convertDigit($fraction{$i});
         }
     }
-    return $output;
+    return kichkiril($output, utf8);
 }
 function convertGroup($index) {
     switch ($index) {
@@ -170,4 +170,13 @@ function convertDigit($digit) {
         case "9":
             return "тўққиз";
     }
+}
+
+
+function kichkiril($string, $encoding)
+{
+    $strlen = mb_strlen($string, $encoding);
+    $firstChar = mb_substr($string, 0, 1, $encoding);
+    $then = mb_substr($string, 1, $strlen - 1, $encoding);
+    return mb_strtoupper($firstChar, $encoding) . $then;
 }
