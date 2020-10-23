@@ -1,40 +1,42 @@
 <?php
-function convertNumber($number) {
-    list($integer, $fraction) = explode(".", (string)$number);
-    $output = "";
-    if ($integer{0} == "-") {
-        $output = "negative ";
-        $integer = ltrim($integer, "-");
-    } else if ($integer{0} == "+") {
-        $output = "positive ";
-        $integer = ltrim($integer, "+");
-    }
-    if ($integer{0} == "0") {
-        $output.= "zero";
-    } else {
-        $integer = str_pad($integer, 36, "0", STR_PAD_LEFT);
-        $group = rtrim(chunk_split($integer, 3, " "), " ");
-        $groups = explode(" ", $group);
-        $groups2 = array();
-        foreach ($groups as $g) {
-            $groups2[] = convertThreeDigit($g{0}, $g{1}, $g{2});
+class Summa {
+    public function convertNumber($number) {
+        list($integer, $fraction) = explode(".", (string)$number);
+        $output = "";
+        if ($integer{0} == "-") {
+            $output = "negative ";
+            $integer = ltrim($integer, "-");
+        } else if ($integer{0} == "+") {
+            $output = "positive ";
+            $integer = ltrim($integer, "+");
         }
-        for ($z = 0;$z < count($groups2);$z++) {
-            if ($groups2[$z] != "") {
-                $output.= $groups2[$z] . convertGroup(11 - $z) . ($z < 11 && !array_search('', array_slice($groups2, $z + 1, -1)) && $groups2[11] != '' && $groups[11] {
-                    0
-                } == '0' ? " and " : ", ");
+        if ($integer{0} == "0") {
+            $output.= "zero";
+        } else {
+            $integer = str_pad($integer, 36, "0", STR_PAD_LEFT);
+            $group = rtrim(chunk_split($integer, 3, " "), " ");
+            $groups = explode(" ", $group);
+            $groups2 = array();
+            foreach ($groups as $g) {
+                $groups2[] = convertThreeDigit($g{0}, $g{1}, $g{2});
+            }
+            for ($z = 0;$z < count($groups2);$z++) {
+                if ($groups2[$z] != "") {
+                    $output.= $groups2[$z] . convertGroup(11 - $z) . ($z < 11 && !array_search('', array_slice($groups2, $z + 1, -1)) && $groups2[11] != '' && $groups[11] {
+                        0
+                    } == '0' ? " and " : ", ");
+                }
+            }
+            $output = rtrim($output, ", ");
+        }
+        if ($fraction > 0) {
+            $output.= " point";
+            for ($i = 0;$i < strlen($fraction);$i++) {
+                $output.= " " . convertDigit($fraction{$i});
             }
         }
-        $output = rtrim($output, ", ");
+        return kichkiril($output, utf8);
     }
-    if ($fraction > 0) {
-        $output.= " point";
-        for ($i = 0;$i < strlen($fraction);$i++) {
-            $output.= " " . convertDigit($fraction{$i});
-        }
-    }
-    return kichkiril($output, utf8);
 }
 function convertGroup($index) {
     switch ($index) {
@@ -171,10 +173,7 @@ function convertDigit($digit) {
             return "тўққиз";
     }
 }
-
-
-function kichkiril($string, $encoding)
-{
+function kichkiril($string, $encoding) {
     $strlen = mb_strlen($string, $encoding);
     $firstChar = mb_substr($string, 0, 1, $encoding);
     $then = mb_substr($string, 1, $strlen - 1, $encoding);
